@@ -47,7 +47,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Protected endpoint for testing JWT authentication.
     /// </summary>
-    /// <returns>Returns an IActionResult indicating successful authentication..</returns>
+    /// <returns>Returns an IActionResult indicating successful authentication.</returns>
     [Authorize]
     [HttpGet("protected")]
     public IActionResult Protected()
