@@ -1,0 +1,91 @@
+# Build Folders
+bin/
+obj/
+
+# User-specific files
+.vscode/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.dbmdl
+*.log
+*.tlog
+*.ide
+*.ilk
+*.ipch
+*.aps
+*.pch
+*.rsp
+*.ncb
+*.opendb
+
+# Roslyn Generated
+Generated\
+
+# Visual Studio working directory
+.vs/
+
+# Mac OS generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Azure App Service
+.local.settings.json
+
+# Rider files
+.idea/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/packages/
+.nuget/project.assets.json
+
+# DotNetCli
+.dotnet/
+
+# Package directories
+**/packages/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.manifest
+*.config
+*.ide
+
+# Enable this if you have machine-specific dev settings
+# (uncomment if necessary)
+# launchSettings.json
+
+# Test Results
+TestResults/
+
+# Entity Framework Migrations
+Migrations/
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+*.lcov
+
+# JetBrains Rider generated files
+.idea/
+*.sln.iml
+
+# Uncomment if you use secrets in your project
+# appsettings.Development.json
+# appsettings.Local.json

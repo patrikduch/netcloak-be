@@ -1,0 +1,12 @@
+<Project>
+  <ItemGroup>
+    <!-- Ensure StyleCop is enabled for all projects -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Enable StyleCop on all projects -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnableStyleCopAnalyzers>true</EnableStyleCopAnalyzers>
+  </PropertyGroup>
+</Project>

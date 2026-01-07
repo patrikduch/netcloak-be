@@ -1,0 +1,24 @@
+# Global settings (applies to all files)
+root = true
+
+# SA1200 - Using directive should appear outside the namespace declaration
+dotnet_diagnostic.SA1200.severity = error
+
+# SA1600 - Elements should be documented
+dotnet_diagnostic.SA1600.severity = error
+
+# SA1413 - Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = error
+
+# SA1309 - Field names should not begin with an underscore
+dotnet_diagnostic.SA1309.severity = error
+
+# SA1101 - Prefix local calls with 'this.'
+dotnet_diagnostic.SA1101.severity = error
+
+# SA1633 - The file header is missing or not located at the top of the file
+dotnet_diagnostic.SA1633.severity = error
+
+# Enforce StyleCop rules as errors
+dotnet_analyzer_diagnostic.category-StyleCop.severity = error
+

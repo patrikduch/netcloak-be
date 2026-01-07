@@ -1,0 +1,6 @@
+@StyleCop_HostAddress = http://localhost:5219
+
+GET {{StyleCop_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

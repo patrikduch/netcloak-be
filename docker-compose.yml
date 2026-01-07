@@ -1,0 +1,6 @@
+services:
+  stylecopexample.api:
+    image: ${DOCKER_REGISTRY-}stylecopexampleapi
+    build:
+      context: .
+      dockerfile: StyleCopExample.API/Dockerfile
