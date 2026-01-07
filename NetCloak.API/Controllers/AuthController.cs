@@ -22,6 +22,11 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    /// <summary>
+    /// Authenticate user with username and password via Keycloak.
+    /// </summary>
+    /// <param name="request">The login request containing username and password.</param>
+    /// <returns>Returns an IActionResult with JWT tokens or unauthorized status.</returns>
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
     {
