@@ -20,7 +20,6 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new OrderEntityConfiguration());
     }
 
-
     public async Task SeedOrdersAsync()
     {
         if (await Orders.AnyAsync())
@@ -54,7 +53,6 @@ public class ApplicationDbContext : DbContext
             await SaveChangesAsync();
         }
     }
-
 
     public DbSet<Order> Orders { get; set; }
 }
