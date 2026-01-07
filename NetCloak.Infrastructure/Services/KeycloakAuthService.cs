@@ -1,12 +1,11 @@
-﻿// KeycloakAuthService.cs
+﻿namespace NetCloak.Infrastructure.Services;
+
+using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using NetCloak.Application.Dtos.Auth.Requests;
 using NetCloak.Application.Dtos.Auth.Responses;
 using NetCloak.Application.Interfaces.Infrastructure;
-using System.Net.Http.Json;
-using System.Text.Json;
-
-namespace NetCloak.Infrastructure.Services;
 
 public class KeycloakAuthService : IAuthService
 {
