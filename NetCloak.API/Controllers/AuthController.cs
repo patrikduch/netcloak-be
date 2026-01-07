@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetCloak.Application.Dtos.Auth.Requests;
+using NetCloak.Application.Dtos.Auth.Responses;
 using NetCloak.Application.Interfaces.Infrastructure;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -32,6 +33,8 @@ public class AuthController : ControllerBase
     /// <param name="request">The login request containing username and password.</param>
     /// <returns>Returns an IActionResult with JWT tokens or unauthorized status.</returns>
     [HttpPost("login")]
+    [ProducesResponseType(typeof(TokenResponseDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
     {
         var result = await _authService.LoginAsync(request);
