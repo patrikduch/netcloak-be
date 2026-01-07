@@ -17,6 +17,10 @@ public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AuthController"/> class.
+    /// </summary>
+    /// <param name="authService">The authentication service for Keycloak operations.</param>
     public AuthController(IAuthService authService)
     {
         _authService = authService;
