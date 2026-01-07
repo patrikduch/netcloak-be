@@ -28,8 +28,7 @@ public class AuthorizeCheckOperationFilter : IOperationFilter
         {
             operation.Responses.TryAdd(
                 "401",
-                new OpenApiResponse { Description = "Unauthorized" }
-            );
+                new OpenApiResponse { Description = "Unauthorized" });
 
             operation.Responses.TryAdd(
                 "403",

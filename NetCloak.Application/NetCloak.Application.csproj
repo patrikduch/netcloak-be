@@ -10,4 +10,8 @@
 		<CodeAnalysisRuleSet>$(SolutionDir)StyleCop.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Folder Include="Interfaces\Persistence\Repositories\" />
+	</ItemGroup>
+
 </Project>
