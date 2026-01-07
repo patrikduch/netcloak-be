@@ -10,6 +10,7 @@ using NetCloak.Persistence;
 using NetCloak.Persistence.Contexts;
 using StyleCop.Filters;
 using StyleCop.HealthChecks;
+using System.Reflection;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,6 +62,10 @@ builder.Services.AddHttpClient<IAuthService, KeycloakAuthService>();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "NetCloak API", Version = "v1" });
+
+    // Propagation  documentation to SWagger UI
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
