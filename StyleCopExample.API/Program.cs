@@ -1,10 +1,15 @@
-using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
-using StyleCop.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using NetCloak.Application.Interfaces.Infrastructure;
 using NetCloak.Infrastructure;
+using NetCloak.Infrastructure.Services;
 using NetCloak.Persistence;
 using NetCloak.Persistence.Contexts;
+using StyleCop.HealthChecks;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +33,60 @@ builder.Services.AddSingleton<NpgsqlHealthCheck>(provider =>
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     return new NpgsqlHealthCheck(connectionString ?? string.Empty);
 });
+
+
+// Keycloak JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["Keycloak:Authority"];
+        options.Audience = builder.Configuration["Keycloak:ClientId"];
+        options.RequireHttpsMetadata = false; // Dev only!
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidAudiences = new[] { builder.Configuration["Keycloak:ClientId"], "account" },
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddHttpClient<IAuthService, KeycloakAuthService>();
+
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "NetCloak API", Version = "v1" });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header. Example: 'Bearer {token}'",
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer",
+                },
+            },
+            Array.Empty<string>()
+        },
+    });
+});
+
 
 // Register the DbContext with Npgsql and the connection string from configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -67,9 +126,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/api/protected", () => "Hello authenticated user!")
+    .RequireAuthorization();
 
 // Map health check endpoints
 app.MapHealthChecks("/health", new HealthCheckOptions
