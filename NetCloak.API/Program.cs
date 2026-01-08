@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NetCloak.Application.Interfaces.Infrastructure;
 using NetCloak.Infrastructure;
-using NetCloak.Infrastructure.Services;
 using NetCloak.Persistence;
 using NetCloak.Persistence.Contexts;
 using StyleCop.Filters;
@@ -22,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices();
 
 // Register the health check
@@ -55,9 +53,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
-
-builder.Services.AddHttpClient<IAuthService, KeycloakAuthService>();
-
 
 builder.Services.AddSwaggerGen(options =>
 {
