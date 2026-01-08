@@ -15,25 +15,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices();
 
-// Register the health check
 builder.Services.AddHealthChecks()
     .AddCheck<NpgsqlHealthCheck>("npgsql_health_check");
 
-// Provide the connection string
 builder.Services.AddSingleton<NpgsqlHealthCheck>(provider =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     return new NpgsqlHealthCheck(connectionString ?? string.Empty);
 });
-
 
 // Keycloak JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
